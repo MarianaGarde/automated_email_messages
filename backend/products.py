@@ -4,12 +4,12 @@ from sql_connection import get_sql_connection
 
 def get_all_products(connection):
     cursor = connection.cursor()
-    query = ("select products.products_id, products.item, products.units, products.price from products")
+    query = ("select products.product_id, products.item, products.units, products.price from products")
     cursor.execute(query)
     response = []
-    for (products_id, item, units, price) in cursor:
+    for (product_id, item, units, price) in cursor:
         response.append({
-            'product_id': products_id,
+            'product_id': product_id,
             'item': item,
             'units': units,
             'price': price,
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     connection = get_sql_connection()
     # print(get_all_products(connection))
     print(insert_new_product(connection, {
-        'item': 'socks_nike_black',
-        'units': '50',
+        'item': 'socks_puma_pink',
+        'units': '1',
         'price': 4.99
     }))
