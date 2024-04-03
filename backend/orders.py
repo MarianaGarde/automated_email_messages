@@ -5,9 +5,9 @@ def insert_order(connection, order):
     cursor = connection.cursor()
 
     order_query = ("INSERT INTO orders "
-             "(customer_name, product, amount, datetime)"
+             "(customer_name, total, datetime)"
              "VALUES (%s, %s, %s)")
-    order_data = (order['customer_name'], order['product'], order['amount'], datetime.now())
+    order_data = (order['customer_name'], order['grand_total'], datetime.now())
 
     cursor.execute(order_query, order_data)
     order_id = cursor.lastrowid
@@ -62,12 +62,11 @@ def get_all_orders(connection):
     query = ("SELECT * FROM orders")
     cursor.execute(query)
     response = []
-    for (order_id, customer_name, product, amount, dt) in cursor:
+    for (order_id, customer_name, total, dt) in cursor:
         response.append({
             'order_id': order_id,
             'customer_name': customer_name,
-            'product': product,
-            'amount': amount,
+            'total': total,
             'datetime': dt,
         })
 
